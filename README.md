@@ -17,6 +17,20 @@ Aplikasi dapat diakses melalui link berikut:
 - Input utama: file `.txt` pesan yang akan dienkripsi atau dekripsi
 - Output utama: file `.txt` hasil enkripsi atau dekripsi
 
+## Anggota Kelompok
+
+| Nama | NIM |
+| :-- | :-- |
+| Abdan Taris Hariri | G6401231049 |
+| Nadya Shafwah | M0403241007 |
+| Safira Ayu Damayanti | M0403241010 |
+| Maulana Syarif Hidayatullah | M0403241049 |
+| Ziyad Adiyan Kemal | M0403241085 |
+| Asty Athetha Loethan | M0403241089 |
+| Isyana Ajeng Khairani | M0403241096 |
+| Azalia Noverizqy | M0403241123 |
+| Deswita Diandra | M0403241127 |
+
 ## Deskripsi Aplikasi
 
 Playfair Cipher GUI App adalah aplikasi web sederhana yang memungkinkan pengguna memasukkan pesan teks atau mengunggah file `.txt`, memilih mode enkripsi/dekripsi, memasukkan kunci berupa passphrase, lalu melihat hasil proses Playfair Cipher.
