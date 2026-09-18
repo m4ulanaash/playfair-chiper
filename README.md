@@ -5,7 +5,7 @@ Aplikasi GUI berbasis web untuk melakukan enkripsi dan dekripsi teks menggunakan
 ## Demo Aplikasi
 
 Aplikasi dapat diakses melalui link berikut:
-[Playfair Cipher - Kelompok 1](link deploy)
+[Playfair Cipher - Kelompok 1](https://playfair-chiper.vercel.app/)
 
 ## Informasi Tugas
 
