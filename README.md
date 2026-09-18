@@ -11,7 +11,8 @@ Aplikasi dapat diakses melalui link berikut:
 
 - Mata kuliah: Keamanan Informasi
 - Kelas / Paralel: K2
-- Nama tugas: Aplikasi & Laporan Playfair Cipher
+- Kelompok: 1
+- Nama tugas: Aplikasi Enkripsi dan Dekripsi Playfair Cipher
 - Bentuk aplikasi: GUI (Graphical User Interface)
 - Input utama: file `.txt` pesan yang akan dienkripsi atau dekripsi
 - Output utama: file `.txt` hasil enkripsi atau dekripsi
