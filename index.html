@@ -5,81 +5,154 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Playfair Cipher</title>
+    <meta name="theme-color" content="#0d1117">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <div class="container">
+    <div class="app-shell">
         <header class="app-header">
-            <h1 class="app-title">Playfair Cipher</h1>
-            <p class="app-description">Aplikasi Enkripsi dan Dekripsi Teks menggunakan Algoritma Playfair Cipher</p>
+            <div class="brand">
+                <span class="brand-mark">PF</span>
+                <span class="brand-title">PLAYFAIR CIPHER</span>
+            </div>
+            <div class="course-badge">Keamanan Informasi - K2</div>
         </header>
 
-        <main class="app-main">
-            <!-- Mode Selection -->
-            <section class="mode-section">
-                <button id="encryptMode" class="mode-btn active">Enkripsi</button>
-                <button id="decryptMode" class="mode-btn">Dekripsi</button>
-            </section>
-
-            <!-- Key & Text Input Section -->
-            <section class="input-section">
-                <div class="form-group">
-                    <label for="key" class="form-label">Kunci (Key):</label>
-                    <input type="text" id="key" class="input-field" placeholder="Masukkan kata kunci">
-                </div>
-
-                <div class="form-group">
-                    <label for="inputText" class="form-label">Teks Input:</label>
-                    <textarea id="inputText" class="input-textarea" rows="5"
-                        placeholder="Masukkan teks yang ingin diproses..."></textarea>
-                </div>
-
-                <div class="form-group file-group">
-                    <label for="file" class="file-label">Upload File (.txt):</label>
-                    <input type="file" id="file" class="input-file" accept=".txt">
-                    <span id="filename" class="file-name"></span>
-                </div>
-            </section>
-
-            <!-- Error Message Alert -->
-            <div id="error" class="error-message" style="display:none"></div>
-
-            <!-- Action Buttons -->
-            <section class="action-section">
-                <button id="process" class="btn btn-primary">Proses</button>
-                <button id="clear" class="btn btn-secondary">Bersihkan</button>
-            </section>
-
-            <!-- Result Section -->
-            <section id="result" class="result-section" style="display:none">
-                <h2 class="result-title">Hasil Proses</h2>
-
-                <div class="result-grid-container">
-                    <div class="square-wrapper">
-                        <h3>Matriks Kunci 5x5</h3>
-                        <div id="square" class="key-square"></div>
+        <div class="workspace">
+            <aside class="control-panel">
+                <section class="panel-section">
+                    <p class="eyebrow">Mode</p>
+                    <div class="mode-section">
+                        <button id="encryptMode" class="mode-btn active" type="button">
+                            <span class="icon-lock"></span>
+                            Encrypt
+                        </button>
+                        <button id="decryptMode" class="mode-btn" type="button">
+                            <span class="icon-unlock"></span>
+                            Decrypt
+                        </button>
                     </div>
+                </section>
 
-                    <div class="pairs-wrapper">
-                        <h3>Pasangan Huruf (Digraf)</h3>
-                        <div id="pairs" class="pairs-container"></div>
+                <section class="panel-section">
+                    <label for="key" class="eyebrow">Passphrase / Key</label>
+                    <input type="text" id="key" class="input-field" placeholder="Enter your key..." value="MONARCHY">
+                    <p class="helper-text">I dan J diproses sebagai huruf yang sama.</p>
+                </section>
+
+                <section class="panel-section">
+                    <label for="file" class="eyebrow">Input Text</label>
+                    <div id="dropZone" class="file-drop-zone" tabindex="0" role="button">
+                        <span class="file-icon"></span>
+                        <span class="file-copy">Drop .txt or click to browse</span>
+                        <input type="file" id="file" class="input-file" accept=".txt">
                     </div>
-                </div>
+                    <span id="filename" class="file-name">Belum ada file dipilih</span>
+                    <textarea id="inputText" class="input-textarea" rows="7" placeholder="Or type your message here..."></textarea>
+                </section>
 
-                <div class="output-wrapper">
-                    <label for="output" class="form-label">Teks Hasil:</label>
+                <div id="error" class="error-message" style="display:none"></div>
+
+                <section class="action-section">
+                    <button id="process" class="btn btn-primary" type="button">
+                        <span class="btn-icon"></span>
+                        <span id="processLabel">Encrypt Message</span>
+                    </button>
+                    <button id="clear" class="btn btn-secondary" type="button">Clear</button>
+                </section>
+
+                <section id="result" class="result-section" style="display:none">
+                    <div class="result-topbar">
+                        <p class="eyebrow">Result</p>
+                        <div class="result-actions">
+                            <button id="copy" class="mini-btn copy-btn" type="button">
+                                <span class="copy-icon" aria-hidden="true"></span>
+                                <span class="copy-label">Copy</span>
+                            </button>
+                            <button id="download" class="mini-btn" type="button">Download .txt</button>
+                        </div>
+                    </div>
                     <textarea id="output" class="output-textarea" rows="5" readonly></textarea>
+                </section>
+            </aside>
+
+            <main class="visual-panel">
+                <div class="visual-grid">
+                    <section class="card matrix-card">
+                        <div class="card-heading">
+                            <div>
+                                <h2>5x5 Playfair Matrix</h2>
+                                <p>Key: <span id="matrixKey">MONARCHY</span></p>
+                            </div>
+                        </div>
+                        <div id="square" class="key-square"></div>
+                        <div id="activeRule" class="rule-status" style="display:none"></div>
+                    </section>
+
+                    <section class="card steps-card">
+                        <div class="card-heading steps-heading">
+                            <div>
+                                <h2>Bigram Steps</h2>
+                                <p id="stepsSummary">Run encryption/decryption to see steps</p>
+                            </div>
+                            <span id="scanBadge" class="scan-badge" style="display:none">
+                                <span></span>
+                                SCANNING
+                            </span>
+                        </div>
+                        <div id="pairs" class="pairs-container">
+                            <div class="empty-state">
+                                <span class="empty-lock"></span>
+                                <p>Masukkan pesan lalu klik encrypt/decrypt untuk melihat langkah bigram.</p>
+                            </div>
+                        </div>
+                    </section>
                 </div>
 
-                <div class="download-wrapper">
-                    <button id="download" class="btn btn-success">Download Hasil</button>
-                </div>
-            </section>
-        </main>
+                <section class="card legend-card">
+                    <h2>Playfair Cipher Rules</h2>
+                    <div class="legend-grid">
+                        <div class="legend-item same-row">
+                            <span></span>
+                            <h3>Same Row</h3>
+                            <p>Encrypt geser kanan. Decrypt geser kiri.</p>
+                        </div>
+                        <div class="legend-item same-col">
+                            <span></span>
+                            <h3>Same Column</h3>
+                            <p>Encrypt geser bawah. Decrypt geser atas.</p>
+                        </div>
+                        <div class="legend-item rectangle">
+                            <span></span>
+                            <h3>Rectangle</h3>
+                            <p>Tukar kolom pada baris masing-masing huruf.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="stats" class="stats-grid" style="display:none">
+                    <div class="stat-card">
+                        <span>Input Length</span>
+                        <strong id="statInput">0</strong>
+                    </div>
+                    <div class="stat-card">
+                        <span>Bigram Pairs</span>
+                        <strong id="statPairs">0</strong>
+                    </div>
+                    <div class="stat-card">
+                        <span>Output Length</span>
+                        <strong id="statOutput">0</strong>
+                    </div>
+                    <div class="stat-card">
+                        <span>Mode</span>
+                        <strong id="statMode">Encrypt</strong>
+                    </div>
+                </section>
+            </main>
+        </div>
     </div>
 
-    <!-- Script dependencies -->
     <script src="js/playfair.js"></script>
     <script src="js/input.js"></script>
     <script src="js/output.js"></script>

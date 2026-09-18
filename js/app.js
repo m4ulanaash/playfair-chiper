@@ -2,142 +2,119 @@
 
 let currentMode = "encrypt";
 
-// SAAT HALAMAN SELESAI DIMUAT
 document.addEventListener("DOMContentLoaded", function () {
-
     setupInput();
+
+    const keyInput =
+        document.getElementById("key");
+    const inputText =
+        document.getElementById("inputText");
     const encryptButton =
         document.getElementById("encryptMode");
-
     const decryptButton =
         document.getElementById("decryptMode");
-
     const processButton =
         document.getElementById("process");
-
+    const processLabel =
+        document.getElementById("processLabel");
     const clearButton =
         document.getElementById("clear");
-
     const downloadButton =
         document.getElementById("download");
+    const copyButton =
+        document.getElementById("copy");
 
-    // MODE ENKRIPSI
-    encryptButton.addEventListener(
-        "click",
-        function () {
-            currentMode = "encrypt";
+    updateMatrixPreview(keyInput.value);
+    updateModeUi();
 
-            encryptButton.classList.add("active");
+    keyInput.addEventListener("input", function () {
+        updateMatrixPreview(keyInput.value);
+        resetVisualization();
+    });
 
-            decryptButton.classList.remove("active");
+    inputText.addEventListener("input", function () {
+        hideError();
+    });
+
+    encryptButton.addEventListener("click", function () {
+        currentMode = "encrypt";
+        updateModeUi();
+        resetVisualization();
+    });
+
+    decryptButton.addEventListener("click", function () {
+        currentMode = "decrypt";
+        updateModeUi();
+        resetVisualization();
+    });
+
+    processButton.addEventListener("click", function () {
+        const key =
+            keyInput.value.trim();
+        const text =
+            inputText.value.trim();
+
+        if (!/[A-Za-z]/.test(key)) {
+            showError("Kunci harus diisi dan mengandung huruf.");
+            return;
         }
-    );
 
-    // MODE DEKRIPSI
-    decryptButton.addEventListener(
-        "click",
-        function () {
-            currentMode = "decrypt";
-
-            decryptButton.classList.add("active");
-
-            encryptButton.classList.remove("active");
+        if (!/[A-Za-z]/.test(text)) {
+            showError("Teks harus diisi dan mengandung huruf.");
+            return;
         }
-    );
 
-    // TOMBOL PROSES
-    processButton.addEventListener(
-        "click",
-        function () {
-            const key =
-                document
-                .getElementById("key")
-                .value
-                .trim();
+        hideError();
 
-            const text =
-                document
-                .getElementById("inputText")
-                .value
-                .trim();
+        const result =
+            processPlayfair(text, key, currentMode);
 
-            // Validasi key
-            if (!/[A-Za-z]/.test(key)) {
-                showError(
-                    "Kunci harus diisi dan mengandung huruf."
-                );
-                return;
-            }
-            // Validasi teks
+        displayResult(result, currentMode, text);
+    });
 
-            if (!/[A-Za-z]/.test(text)) {
-                showError(
-                    "Teks harus diisi dan mengandung huruf."
-                );
-                return;
-            }
-            hideError();
+    clearButton.addEventListener("click", function () {
+        keyInput.value = "MONARCHY";
+        inputText.value = "";
+        document.getElementById("filename").textContent =
+            "Belum ada file dipilih";
+        document.getElementById("file").value = "";
 
-            // Jalankan algoritma Playfair
-            const result =
-                processPlayfair(
-                    text,
-                    key,
-                    currentMode
-                );
+        updateMatrixPreview(keyInput.value);
+        resetVisualization();
+        hideError();
+    });
 
-            // Tampilkan hasil
-            displayResult(result);
-        }
-    );
+    copyButton.addEventListener("click", function () {
+        copyResult();
+    });
 
-    // TOMBOL BERSIHKAN
-    clearButton.addEventListener(
-        "click",
-        function () {
+    downloadButton.addEventListener("click", function () {
+        downloadResult(currentMode);
+    });
 
-            document.getElementById("key").value = "";
+    function updateModeUi() {
+        const isEncrypt =
+            currentMode === "encrypt";
 
-            document.getElementById("inputText").value = "";
-
-            document.getElementById("output").value = "";
-
-            document.getElementById("filename").textContent = "";
-
-            document.getElementById("file").value = "";
-
-            document.getElementById("square").innerHTML = "";
-
-            document.getElementById("pairs").innerHTML = "";
-
-            document.getElementById("result")
-                .style.display = "none";
-            hideError();
-        }
-    );
-
-    // DOWNLOAD
-    downloadButton.addEventListener(
-        "click",
-        function () {
-            downloadResult(currentMode);
-        }
-    );
+        encryptButton.classList.toggle("active", isEncrypt);
+        decryptButton.classList.toggle("active", !isEncrypt);
+        processButton.classList.toggle("decrypt", !isEncrypt);
+        processLabel.textContent =
+            isEncrypt ? "Encrypt Message" : "Decrypt Message";
+    }
 });
 
-
-
-// MENAMPILKAN ERROR
 function showError(message) {
     const error =
         document.getElementById("error");
+
     error.textContent = message;
     error.style.display = "block";
 }
 
-// MENYEMBUNYIKAN ERROR
 function hideError() {
     const error =
         document.getElementById("error");
+
     error.style.display = "none";
 }
