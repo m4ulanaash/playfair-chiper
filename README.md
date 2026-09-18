@@ -189,7 +189,3 @@ CFSUPM
 - Huruf `X` digunakan sebagai filler untuk pasangan huruf yang sama atau jumlah huruf ganjil.
 - Hasil dekripsi masih dapat mengandung filler `X`, sehingga pengguna dapat menyesuaikan kembali teks akhir sesuai konteks pesan asli.
 - Visualisasi bigram menampilkan rule yang digunakan pada setiap pasangan huruf: `row`, `col`, atau `rect`.
-
-## Kesimpulan
-
-Aplikasi ini memenuhi kebutuhan utama tugas Playfair Cipher berbasis GUI, yaitu menerima input teks/file, memproses enkripsi dan dekripsi dengan key, menampilkan matriks 5x5, memvisualisasikan langkah bigram, serta menghasilkan output berupa file `.txt`.
