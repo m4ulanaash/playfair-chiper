@@ -2,13 +2,18 @@
 
 Aplikasi GUI berbasis web untuk melakukan enkripsi dan dekripsi teks menggunakan algoritma Playfair Cipher. Proyek ini dibuat untuk tugas mata kuliah Keamanan Informasi.
 
+## Demo Aplikasi
+
+Aplikasi dapat diakses melalui link berikut:
+[Playfair Cipher - Kelompok 1](link deploy)
+
 ## Informasi Tugas
 
 - Mata kuliah: Keamanan Informasi
 - Kelas / Paralel: K2
 - Nama tugas: Aplikasi & Laporan Playfair Cipher
 - Bentuk aplikasi: GUI (Graphical User Interface)
-- Input utamaL file `.txt` pesan yang akan dienkripsi atau dekripsi
+- Input utama: file `.txt` pesan yang akan dienkripsi atau dekripsi
 - Output utama: file `.txt` hasil enkripsi atau dekripsi
 
 ## Deskripsi Aplikasi
