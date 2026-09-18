@@ -28,7 +28,7 @@ Aplikasi dapat diakses melalui link berikut:
 | Ziyad Adiyan Kemal | M0403241085 |
 | Asty Athetha Loethan | M0403241089 |
 | Isyana Ajeng Khairani | M0403241096 |
-| Azalia Noverizqy | M0403241123 |
+| Azalia Noverizqy Aqila Pramono | M0403241123 |
 | Deswita Diandra | M0403241127 |
 
 ## Deskripsi Aplikasi
