@@ -105,7 +105,7 @@ playfair-chiper/
 ### 1. Clone Repository
 
 ```bash
-git clone <url-repository>
+git clone https://github.com/m4ulanaash/playfair-chiper
 ```
 
 ### 2. Masuk Ke Folder Proyek
